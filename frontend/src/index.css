@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+
+.navbar .navbar-add-post{
+  float: right;
+  margin-top: 7.5px;
+} 
+
+
+.posts-list .posts-sort{
+  text-align: right;
+}
+
+.post-summary{
+  margin: 10px 0;
+  max-width: 800px;
+  clear: both;
+  border: 1px solid #337ab7;
+  padding: 5px 15px;
+}
+.post-summary > div{
+  padding: 5px 0;
+}
+.post-summary .post-head .post-title,
+.post-summary .post-head .post-title a{
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.post-summary .post-head .post-author{
+  font-style: italic;
+}
+
+.post-summary .post-body .post-content{
+  padding: 10px 15px 50px;
+  font-size: 1.5rem;
+}
+
+.post-summary .post-body .post-category{
+  font-size: 1.3rem;
+  color: gray;
+  padding: 20px 15px;
+}
+.post-summary .post-body .post-score button{
+  background: none;
+  border-radius: 2px;
+  margin-left: 5px;
+}
+
+.comments-list {
+  margin-top: 25px;
+}
+
+.comments-list .comments-list-title{
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.comments-list .comment-detail{
+  border-bottom: 1px solid #bcb8b8;
+}
+
+.comments-list .comment-detail:last-child{
+  border-bottom: none;
+}
+
+.comment-detail{
+  padding: 15px 15px 15px 25px;
+}
+.comment-detail > div{
+  padding: 5px 5px;
+}
