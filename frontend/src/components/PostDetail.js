@@ -72,7 +72,9 @@ class PostDetail extends Component {
           </Col>
         </Row>
         <Col xs={12} className="post-comments-container">
-          <ListComments postId={post.id} comments={post.comments}/>  
+          <ListComments 
+            postId={post.id} 
+            comments={post.comments}/>  
         </Col>
         
       </Col>
@@ -80,13 +82,11 @@ class PostDetail extends Component {
   }
 }
 
-function mapStateToProps({currentPost}){
+function mapStateToProps({currentPost,comments}){
   const post = {...currentPost};
+  post.comments = comments[post.id] ? comments[post.id]: [];
+  post.comments = post.comments.sort( (a,b)=> b.timestamp - a.timestamp );
   
-  if(post.comments){
-    post.comments = post.comments.sort( (a,b)=> b.timestamp - a.timestamp );
-  }
-
   return {
     post
   };

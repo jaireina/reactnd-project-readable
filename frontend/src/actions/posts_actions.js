@@ -110,15 +110,17 @@ export const deletePost = post => {
  * 
  * @param {String} postId
  */
-export const fetchPostComments = (postId) => dispatch => getComments(postId).then(comments => dispatch(receivePostComments(comments)));
+export const fetchPostComments = (postId) => dispatch => getComments(postId).then(comments => dispatch(receivePostComments(comments, postId)));
 
 /**
- * Creates an action that is used when we're receiving a detailed post
- * @param {Object} post
+ * Creates an action that is used when we're receiving the comments of a post
+ * @param {Object} comments
+ * @param {Object} postId
  */
-export const receivePostComments = comments => {
+export const receivePostComments = (comments, postId) => {
   return {
     type: RECEIVE_POST_COMMENTS,
-    comments
+    comments,
+    postId
   }
 };

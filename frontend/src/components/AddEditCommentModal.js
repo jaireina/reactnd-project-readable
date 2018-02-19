@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+
+import {requestAddComment} from '../actions/comments_actions';
 
 import {Button,FormGroup,ControlLabel,FormControl, Modal} from 'react-bootstrap';
 
 class AddEditCommentModal extends Component {
   static propTypes = {
     title: PropTypes.string,
-    onCloseRequest: PropTypes.func
+    onCloseRequest: PropTypes.func,
+    postId: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -84,7 +89,11 @@ class AddEditCommentModal extends Component {
       return;
     }
 
-    console.log(this.state);
+    const {author, body} = this.state; 
+    const comment = {author, body, parentId: this.props.postId};
+    
+    this.props.submitAddComment(comment).then(this.handleModalClose);
+    
     return true;
   }
 
@@ -92,7 +101,7 @@ class AddEditCommentModal extends Component {
     
     return (
       <Modal
-        {...this.props}
+        show={this.props.show}
         bsSize="large"
         aria-labelledby="contained-modal-title-lg"
         onHide = {this.handleModalClose}
@@ -142,4 +151,10 @@ class AddEditCommentModal extends Component {
   }
 }
 
-export default AddEditCommentModal;
+function mapDispatchToProps(dispatch){
+  return {
+    submitAddComment: (comment) => dispatch(requestAddComment(comment))
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(AddEditCommentModal));

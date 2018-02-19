@@ -14,7 +14,8 @@ import AddEditCommentModal from './AddEditCommentModal';
 class ListComments extends Component {
 
   static propTypes = {
-    comments: PropTypes.array
+    comments: PropTypes.array,
+    postId: PropTypes.string.isRequired
   }
 
   static defaultProps = {
@@ -31,7 +32,6 @@ class ListComments extends Component {
 
   render() {
     let {comments} = this.props;
-    console.log(comments);
     
     return(
       <Row className="comments-list">
@@ -50,6 +50,7 @@ class ListComments extends Component {
         <AddEditCommentModal
           show={this.state.showAddCommentModal}
           onHide={()=>this.setAddCommentModalState(false)}
+          postId={this.props.postId}
           />
             
       </Row>

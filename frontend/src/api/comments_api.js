@@ -1,4 +1,21 @@
+import uuidv4 from 'uuid/v4';
 import {doGet, doPost, doDelete} from '../util/fetch';
+
+/**
+ * Add a new comment with the given data
+ * 
+ * @param {object} data of the comment to be created
+ * @return {Promise} that resolves to an object with the post information
+ */
+export const add = (data) => {
+  
+  let comment = {id: uuidv4(), timestamp: Date.now(), ...data};
+
+  return doPost(`/comments`, comment);
+};
+
+
+/**** TODO: REVIEW BELOW ****/
 
 /**
  * Get all the posts from the server
@@ -17,18 +34,7 @@ export const getAll = () => doGet(`/posts`);
 export const get = (id) => doGet(`/posts/${id}`);
 
 
-/**
- * Add a new post with the given data
- * 
- * @param {object} data of the post to be created
- * @return {Promise} that resolves to an object with the post information
- */
-export const add = (data) => {
-  
-  let post = {id: uuidv4(), ...data};
 
-  return doPost(`/posts`, post);
-};
 
 /**
  * Upvote or downvote a post

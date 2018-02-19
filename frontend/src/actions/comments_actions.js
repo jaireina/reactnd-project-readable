@@ -1,5 +1,5 @@
 import {
-  add  
+  add as addCommentApi
 } from '../api/comments_api';
 
 export const ADD_COMMENT = 'ADD_COMMENT';
@@ -7,15 +7,24 @@ export const EDIT_COMMENT = 'EDIT_COMMENT';
 export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const VOTE_COMMENT = 'VOTE_COMMENT';
 
+/**
+* Creates an action that is used when we're adding a comment
+* @param {Object} post
+*/
 
 export const addComment = (comment) => {
-  console.log(comment);
   return {
-    type: ADD_COMMENT
+    type: ADD_COMMENT,
+    comment
   }
 }
 
-
+/**
+ * Connects to the API to add a new comment. Once the server responds, it dispatches the addComment action
+ * 
+ * @param {Object} commentData
+ */
+export const requestAddComment = commentData => dispatch => addCommentApi(commentData).then(comment=>dispatch(addComment(comment)));
 
 
 
@@ -38,7 +47,7 @@ export const voteCommentSuccess = (post) => {
 * @param {String} postId
 * @param {String} voteType upVote or downVote
 */
-export const sendVote = (postId, voteType) => dispatch => vote(postId, voteType).then(post=> dispatch(voteCommentSuccess(post)) );
+//export const sendVote = (postId, voteType) => dispatch => vote(postId, voteType).then(post=> dispatch(voteCommentSuccess(post)) );
 
 
 /**
@@ -47,7 +56,7 @@ export const sendVote = (postId, voteType) => dispatch => vote(postId, voteType)
 * 
 * @param {String} id of the post to be deleted
 */
-export const requestCommentDeletion = (id) => dispatch => deleteCommentApi(id).then(post => dispatch(deleteComment(post)));
+//export const requestCommentDeletion = (id) => dispatch => deleteCommentApi(id).then(post => dispatch(deleteComment(post)));
 
 /**
 * Creates an action that is used when we're deleting a post
@@ -55,7 +64,7 @@ export const requestCommentDeletion = (id) => dispatch => deleteCommentApi(id).t
 */
 export const deleteComment = comment => {
   return {
-    type: DELETE_POST,
+    type: DELETE_COMMENT,
     comment
   }
 };

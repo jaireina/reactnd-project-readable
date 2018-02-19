@@ -3,6 +3,11 @@ import {
   VOTE_POST,
   RECEIVE_POST_COMMENTS
 } from '../actions/posts_actions';
+
+import {
+  ADD_COMMENT
+} from '../actions/comments_actions';
+
 import { RECEIVE_CATEGORIES } from '../actions/categories_actions';
 
 const initialCurrentPostState = {};
@@ -15,11 +20,6 @@ function currentPostReducer(state=initialCurrentPostState, action){
 
     case VOTE_POST:
       return {...action.post};
-    
-    case RECEIVE_POST_COMMENTS:
-      const post = {...state};
-      post['comments'] = action.comments;
-      return post;
 
     default: 
       return state;
