@@ -57,12 +57,12 @@ export const deleteComment = id => doDelete(`/comments/${id}`);
 
 
 /**
- * Upvote or downvote a post
+ * Upvote or downvote a comment
  * 
- * @param {string} id of the post
+ * @param {string} id of the comment
  * @param {string} voteType - upVote or downVote
- * @return {Promise} that resolves to an object with the info of the post that was voted
+ * @return {Promise} that resolves to an object with the info of the comment that was voted
  */
-export const vote = (id, voteType) => doPost(`/posts/${id}`, {option: voteType});
+export const vote = (id, voteType) => doPost(`/comments/${id}`, {option: voteType});
 
 

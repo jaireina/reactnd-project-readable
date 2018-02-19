@@ -1,7 +1,8 @@
 import {
   add as addCommentApi,
   edit as editCommentApi,
-  deleteComment as deleteCommentApi
+  deleteComment as deleteCommentApi,
+  vote as voteApi
 } from '../api/comments_api';
 
 export const ADD_COMMENT = 'ADD_COMMENT';
@@ -67,35 +68,27 @@ export const deleteComment = comment => {
 export const requestCommentDeletion = (id) => dispatch => deleteCommentApi(id).then(comment => dispatch(deleteComment(comment)));
 
 
-
-
-
-
-
-
-
-
-
+/**
+* Connects to the API to vote for the comment with id 
+* and dispatches the voteCommentSuccess action once the 
+* info is received back from the server
+* 
+* @param {String} id of the comment to vote on
+* @param {String} voteType upVote or downVote
+*/
+export const sendVote = (id, voteType) => dispatch => voteApi(id, voteType).then(comment=> dispatch(voteCommentSuccess(comment)) );
 
 /**
-* Updates the list of posts with the one that was just updated
-* @param {Object} post the post that was voted and that needs to be updated in the list
+* Action that is triggered when a comment has been voted or downvoted
+* @param {Object} comment that was updated
 */
-export const voteCommentSuccess = (post) => {
+export const voteCommentSuccess = (comment) => {
+  console.log(comment);
   return {
     type: VOTE_COMMENT,
-    post
+    comment
   }
 };
 
-/**
-* Connects to the API to vote for the post from postId 
-* and dispatches the votePost action once the post 
-* info is received back from the server
-* 
-* @param {String} postId
-* @param {String} voteType upVote or downVote
-*/
-//export const sendVote = (postId, voteType) => dispatch => vote(postId, voteType).then(post=> dispatch(voteCommentSuccess(post)) );
 
 

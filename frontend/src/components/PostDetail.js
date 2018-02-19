@@ -7,13 +7,10 @@ import {withRouter} from 'react-router-dom';
 import {fetchPost, fetchPostComments} from '../actions/posts_actions';
 
 import {Row,Col} from 'react-bootstrap';
-import CommentsIcon from 'react-icons/lib/fa/comments-o';
 
 import PostScore from './PostScore';
 import EditDeletePostBar from './EditDeletePostBar';
 import ListComments from './ListComments';
-
-import current_post_reducer from '../reducers/current_post_reducer';
 
 /**
 * @description displays the summary view of a post.

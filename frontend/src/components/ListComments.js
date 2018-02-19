@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import {Row,Col,FormGroup,ControlLabel,FormControl,Form, Button} from 'react-bootstrap';
+import {Row,Col, Button} from 'react-bootstrap';
 import CommentsIcon from 'react-icons/lib/fa/comments-o';
 
 import CommentDetail from './CommentDetail';

@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-
 import {Row,Col,ButtonToolbar,Button} from 'react-bootstrap';
-import CommentsIcon from 'react-icons/lib/fa/comments-o';
-import ArrowRightIcon from 'react-icons/lib/fa/arrow-right';
 
-import PostScore from './PostScore';
+import CommentScore from './CommentScore';
 import AddEditCommentModal from  './AddEditCommentModal';
 
 import {requestCommentDeletion} from '../actions/comments_actions';
@@ -37,6 +33,7 @@ class CommentDetail extends Component {
   handlePostDeletion = ()=>{
     this.props.executeCommentDeletion(this.props.comment.id).then(()=>alert('Comment deleted'));
   }
+
   render() {
     const {comment} = this.props;
 
@@ -54,7 +51,10 @@ class CommentDetail extends Component {
             {comment.body}
           </Col>          
           <Col xs={8}>
-            {/* <PostScore voteScore={comment.voteScore} id={post.id} /> */}
+            <CommentScore 
+              id={comment.id}
+              voteScore={comment.voteScore} 
+              />
           </Col>
         </Row>
         <Row className="comment-actions">

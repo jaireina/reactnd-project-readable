@@ -1,13 +1,13 @@
 import {
   ADD_COMMENT, 
   EDIT_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  VOTE_COMMENT
 } from '../actions/comments_actions';
 
 import {
   RECEIVE_POST_COMMENTS
 } from '../actions/posts_actions';
-import current_post_reducer from './current_post_reducer';
 
 const initialState = {};
 
@@ -24,6 +24,7 @@ function commentsReducer(state=initialState, action){
       return {...state, [action.postId]: action.comments};
 
     case EDIT_COMMENT:
+    case VOTE_COMMENT:
     case DELETE_COMMENT:
       return {...state, 
               [action.comment.parentId]: _replaceCommentInList(action.comment, state)};
