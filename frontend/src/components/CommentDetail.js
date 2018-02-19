@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+
+
 import {Row,Col,ButtonToolbar,Button} from 'react-bootstrap';
 import CommentsIcon from 'react-icons/lib/fa/comments-o';
 import ArrowRightIcon from 'react-icons/lib/fa/arrow-right';
 
 import PostScore from './PostScore';
-import EditDeletePostBar from './EditDeletePostBar';
 import AddEditCommentModal from  './AddEditCommentModal';
+
+import {requestCommentDeletion} from '../actions/comments_actions';
 
 /**
 * @description displays the detail view of a comment.
@@ -30,6 +34,9 @@ class CommentDetail extends Component {
     this.setState({showEditModal: modalState});
   }
 
+  handlePostDeletion = ()=>{
+    this.props.executeCommentDeletion(this.props.comment.id).then(()=>alert('Comment deleted'));
+  }
   render() {
     const {comment} = this.props;
 
@@ -61,6 +68,7 @@ class CommentDetail extends Component {
             <Button 
               bsStyle="danger" 
               bsSize="xsmall"
+              onClick={this.handlePostDeletion}
               >Delete</Button>
           </ButtonToolbar>
           </Col>
@@ -78,4 +86,10 @@ class CommentDetail extends Component {
   }
 }
 
-export default CommentDetail;
+function mapDispatchToProps(dispatch){
+  return {
+    executeCommentDeletion: (postId) => dispatch(requestCommentDeletion(postId))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(CommentDetail);

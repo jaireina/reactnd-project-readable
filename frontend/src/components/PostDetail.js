@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom';
 
 import {fetchPost, fetchPostComments} from '../actions/posts_actions';
 
-import {Row,Col,ButtonToolbar,Button} from 'react-bootstrap';
+import {Row,Col} from 'react-bootstrap';
 import CommentsIcon from 'react-icons/lib/fa/comments-o';
 
 import PostScore from './PostScore';
@@ -85,7 +85,9 @@ class PostDetail extends Component {
 function mapStateToProps({currentPost,comments}){
   const post = {...currentPost};
   post.comments = comments[post.id] ? comments[post.id]: [];
-  post.comments = post.comments.sort( (a,b)=> b.timestamp - a.timestamp );
+  post.comments = post.comments
+                    .filter(comment => !comment.deleted)
+                    .sort( (a,b)=> b.timestamp - a.timestamp );
   
   return {
     post

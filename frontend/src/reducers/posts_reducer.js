@@ -7,6 +7,11 @@ import {
   RECEIVE_POST_DETAIL
 } from '../actions/posts_actions';
 
+import {
+  DELETE_COMMENT,
+  ADD_COMMENT
+} from '../actions/comments_actions';
+
 const initialPostsState = [];
 
 /**
@@ -48,6 +53,18 @@ function postsReducer(postsState=initialPostsState, action){
 
     case RECEIVE_POST_DETAIL:
       return replacePostInList(postsState, action.post);
+
+    case DELETE_COMMENT:
+      const postId = action.comment.parentId;
+      const postOwner = postsState.find(post=>post.id == postId);
+      postOwner.commentCount--;
+      return replacePostInList(postsState, postOwner);
+    
+    case ADD_COMMENT:
+      const postID = action.comment.parentId;
+      const postEdited = postsState.find(post=>post.id == postID);
+      postEdited.commentCount++;
+      return replacePostInList(postsState, postEdited);
 
     default: 
       return postsState;

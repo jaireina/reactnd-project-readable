@@ -46,6 +46,13 @@ export const getAll = () => doGet(`/posts`);
  */
 export const get = (id) => doGet(`/posts/${id}`);
 
+/**
+ * Detele a comment
+ * 
+ * @param {string} id of the comment
+ * @return {Promise} that resolves to an object with the info of the comment that was deleted
+ */
+export const deleteComment = id => doDelete(`/comments/${id}`);
 
 
 
@@ -58,11 +65,4 @@ export const get = (id) => doGet(`/posts/${id}`);
  */
 export const vote = (id, voteType) => doPost(`/posts/${id}`, {option: voteType});
 
-/**
- * Detele a post
- * 
- * @param {string} id of the post
- * @return {Promise} that resolves to an object with the info of the post that was voted
- */
-export const deletePost = id => doDelete(`/posts/${id}`);
 

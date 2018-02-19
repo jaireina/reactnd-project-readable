@@ -1,6 +1,7 @@
 import {
   ADD_COMMENT, 
   EDIT_COMMENT,
+  DELETE_COMMENT
 } from '../actions/comments_actions';
 
 import {
@@ -22,17 +23,22 @@ function commentsReducer(state=initialState, action){
     case RECEIVE_POST_COMMENTS:
       return {...state, [action.postId]: action.comments};
 
-    case EDIT_COMMENT:  
-      const editedComment = action.comment;
-      const editedCommentPostId = editedComment.parentId;
-      const currentComments = state[editedCommentPostId]? state[editedCommentPostId]:[];
-      const commentIndex = currentComments.findIndex(c=> c.id === editedComment.id);
-      currentComments[commentIndex] = editedComment;
-      return {...state, [editedCommentPostId]: currentComments};
-
+    case EDIT_COMMENT:
+    case DELETE_COMMENT:
+      return {...state, 
+              [action.comment.parentId]: _replaceCommentInList(action.comment, state)};
+    
     default: 
       return state;
   }
+}
+
+function _replaceCommentInList(comment, state){
+  const {parentId} = comment;
+  const currentComments = state[parentId]? state[parentId]:[];
+  const commentIndex = currentComments.findIndex(c=> c.id === comment.id);
+  currentComments[commentIndex] = comment;
+  return currentComments;
 }
 
 export default commentsReducer;
