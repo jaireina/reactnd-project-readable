@@ -1,5 +1,6 @@
 import {
-  add as addCommentApi
+  add as addCommentApi,
+  edit as editCommentApi
 } from '../api/comments_api';
 
 export const ADD_COMMENT = 'ADD_COMMENT';
@@ -9,7 +10,7 @@ export const VOTE_COMMENT = 'VOTE_COMMENT';
 
 /**
 * Creates an action that is used when we're adding a comment
-* @param {Object} post
+* @param {Object} action
 */
 
 export const addComment = (comment) => {
@@ -25,6 +26,26 @@ export const addComment = (comment) => {
  * @param {Object} commentData
  */
 export const requestAddComment = commentData => dispatch => addCommentApi(commentData).then(comment=>dispatch(addComment(comment)));
+
+
+/**
+* Creates an action that is used when we're editing a comment
+* @param {Object} action
+*/
+export const editComment = (comment) => {
+  return {
+    type: EDIT_COMMENT,
+    comment
+  }
+}
+
+/**
+ * Connects to the API to edit a comment. Once the server responds, it dispatches the editComment action
+ * 
+ * @param {Object} commentData
+ */
+export const requestEditComment = commentData => dispatch => editCommentApi(commentData).then(comment=>dispatch(editComment(comment)));
+
 
 
 

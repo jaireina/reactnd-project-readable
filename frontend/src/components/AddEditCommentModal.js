@@ -3,19 +3,20 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 
-import {requestAddComment} from '../actions/comments_actions';
+import {requestAddComment, requestEditComment} from '../actions/comments_actions';
 
 import {Button,FormGroup,ControlLabel,FormControl, Modal} from 'react-bootstrap';
 
 class AddEditCommentModal extends Component {
   static propTypes = {
-    title: PropTypes.string,
     onCloseRequest: PropTypes.func,
-    postId: PropTypes.string.isRequired
+    postId: PropTypes.string.isRequired,
+    action: PropTypes.string,
+    comment: PropTypes.object
   }
 
   static defaultProps = {
-    title: 'Add comment'
+    action: 'add'
   }
 
   state = {
@@ -24,7 +25,9 @@ class AddEditCommentModal extends Component {
     touched: {
       body: false,
       author: false
-    }    
+    },
+    isEditing: false,
+    modalTitle: 'Add comment',
   }
 
   getValidationState = (field, ignoreTouchState=false) => {
@@ -72,6 +75,15 @@ class AddEditCommentModal extends Component {
     });
   }
   
+  handleOnEnter = () => {
+    const {action} = this.props;
+    if(action==="add") return;
+    
+    const {body, author} = this.props.comment;
+    if(action==="edit"){
+      this.setState({isEditing: true, modalTitle: "Edit Comment", body, author})
+    };
+  }
 
   formHasErrors = () => {
     const {getValidationState} = this;
@@ -88,11 +100,16 @@ class AddEditCommentModal extends Component {
     if(this.formHasErrors()){
       return;
     }
-
-    const {author, body} = this.state; 
-    const comment = {author, body, parentId: this.props.postId};
     
-    this.props.submitAddComment(comment).then(this.handleModalClose);
+    const {author, body} = this.state; 
+    
+    if(this.state.isEditing){
+      const {id} = this.props.comment;
+      this.props.submitEditComment({body, id}).then(this.handleModalClose);
+    }else{
+      const parentId = this.props.postId;
+      this.props.submitAddComment({author, body, parentId}).then(this.handleModalClose);
+    }
     
     return true;
   }
@@ -105,42 +122,43 @@ class AddEditCommentModal extends Component {
         bsSize="large"
         aria-labelledby="contained-modal-title-lg"
         onHide = {this.handleModalClose}
+        onEnter = {this.handleOnEnter}
       >
         <form onSubmit={this.handleSubmit}>
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-lg">{this.props.title}</Modal.Title>
+          <Modal.Title id="contained-modal-title-lg">{this.state.modalTitle}</Modal.Title>
         </Modal.Header>
+        
         <Modal.Body>
-          
-            <FormGroup
-              controlId="body"
-              validationState={this.getValidationState('body')}
-            >
-              <ControlLabel>Comment*:</ControlLabel>
-              <FormControl
-                componentClass="textarea"
-                value={this.state.body}
-                placeholder="Your thoughts here..."
-                onChange={(e)=>this.handleChange('body', e)}
-                onBlur={()=>this.handleBlur('body')}
-              />
-            </FormGroup>
-            <FormGroup
-              controlId="author"
-              validationState={this.getValidationState('author')}
-            >
-              <ControlLabel>Author*:</ControlLabel>
-              <FormControl
-                type="text"
-                value={this.state.author}
-                placeholder="Your name here..."
-                onChange={(e)=>this.handleChange('author', e)}
-                onBlur={()=>this.handleBlur('author')}
-              />
-            </FormGroup>
-          
-          
+          <FormGroup
+            controlId="body"
+            validationState={this.getValidationState('body')}
+          >
+            <ControlLabel>Comment*:</ControlLabel>
+            <FormControl
+              componentClass="textarea"
+              value={this.state.body}
+              placeholder="Your thoughts here..."
+              onChange={(e)=>this.handleChange('body', e)}
+              onBlur={()=>this.handleBlur('body')}
+            />
+          </FormGroup>
+          <FormGroup
+            controlId="author"
+            validationState={this.getValidationState('author')}
+          >
+            <ControlLabel>Author*:</ControlLabel>
+            <FormControl
+              type="text"
+              value={this.state.author}
+              placeholder="Your name here..."
+              onChange={(e)=>this.handleChange('author', e)}
+              onBlur={()=>this.handleBlur('author')}
+              disabled={this.state.isEditing}
+            />
+          </FormGroup>
         </Modal.Body>
+        
         <Modal.Footer>
           <Button bsStyle="primary" type="submit">Submit</Button>
           <Button onClick={this.handleModalClose}>Close</Button>
@@ -153,7 +171,8 @@ class AddEditCommentModal extends Component {
 
 function mapDispatchToProps(dispatch){
   return {
-    submitAddComment: (comment) => dispatch(requestAddComment(comment))
+    submitAddComment: (comment) => dispatch(requestAddComment(comment)),
+    submitEditComment: (comment) => dispatch(requestEditComment(comment))
   }
 }
 

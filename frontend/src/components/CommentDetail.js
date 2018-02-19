@@ -7,6 +7,7 @@ import ArrowRightIcon from 'react-icons/lib/fa/arrow-right';
 
 import PostScore from './PostScore';
 import EditDeletePostBar from './EditDeletePostBar';
+import AddEditCommentModal from  './AddEditCommentModal';
 
 /**
 * @description displays the detail view of a comment.
@@ -19,6 +20,14 @@ class CommentDetail extends Component {
 
   static defaultProps = {
     comment: {}
+  }
+
+  state = {
+    showEditModal: false
+  }
+
+  setEditModalState = (modalState)=>{
+    this.setState({showEditModal: modalState});
   }
 
   render() {
@@ -44,7 +53,11 @@ class CommentDetail extends Component {
         <Row className="comment-actions">
           <Col xs={12}>
           <ButtonToolbar>
-            <Button bsStyle="primary" bsSize="xsmall">Edit</Button>
+            <Button 
+              bsStyle="primary" 
+              bsSize="xsmall"
+              onClick={()=>this.setEditModalState(true)}
+              > Edit</Button>
             <Button 
               bsStyle="danger" 
               bsSize="xsmall"
@@ -52,6 +65,14 @@ class CommentDetail extends Component {
           </ButtonToolbar>
           </Col>
         </Row>
+
+        <AddEditCommentModal
+          show={this.state.showEditModal}
+          onHide={()=>this.setEditModalState(false)}
+          postId={comment.parentId}
+          action="edit"
+          comment={comment}
+          />
       </Col>
     );
   }
