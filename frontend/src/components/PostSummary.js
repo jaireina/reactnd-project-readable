@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Row,Col,ButtonToolbar,Button} from 'react-bootstrap';
+import {Row,Col} from 'react-bootstrap';
 import CommentsIcon from 'react-icons/lib/fa/comments-o';
 import ArrowRightIcon from 'react-icons/lib/fa/arrow-right';
 

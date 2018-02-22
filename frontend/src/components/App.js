@@ -8,7 +8,9 @@ import {Switch, Link, Route, withRouter} from 'react-router-dom';
 import ListPosts from './ListPosts';
 import PostDetail from './PostDetail';
 import AddEditPostModal from './AddEditPostModal';
-// import {add} from '../api/posts_api';
+import ErrorMessage from './ErrorMessage';
+
+//import {add} from '../api/posts_api';
 
 import {fetchPosts} from '../actions/posts_actions';
 import {fetchCategories} from '../actions/categories_actions';
@@ -16,8 +18,8 @@ import {fetchCategories} from '../actions/categories_actions';
 
 // for(let i = 0; i<10; i++){
 //   add({timestamp:Date.now(),title:`post ${i}`,body:`BODYE HERE ${i}`, category: i%3?'redux':i%2?"react":"udacity"})
-//   // .then(console.log)
-//   // .then(()=>POSTS_API.getAll().then(console.log));
+//   .then(console.log)
+//   .then(()=>POSTS_API.getAll().then(console.log));
 // }
 
 
@@ -86,6 +88,10 @@ class App extends Component {
                   render={()=><ListPosts posts={posts} category={category}/>}
                   />
               ))}
+
+              <Route 
+                component={ErrorMessage}
+              />
             </Switch>
           </Col>
           

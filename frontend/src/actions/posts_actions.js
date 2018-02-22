@@ -70,7 +70,7 @@ export const sendVote = (postId, voteType) => dispatch => vote(postId, voteType)
  * @param {String} postId
  */
 export const fetchPost = (postId) => dispatch => getPost(postId)
-                                                  .then(post => dispatch(receivePost(post)));
+                                                  .then(post => {dispatch(receivePost(post))});
 
 /**
  * Creates an action that is used when we're receiving a detailed post

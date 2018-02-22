@@ -11,6 +11,7 @@ import {Row,Col} from 'react-bootstrap';
 import PostScore from './PostScore';
 import EditDeletePostBar from './EditDeletePostBar';
 import ListComments from './ListComments';
+import ErrorMessage from './ErrorMessage';
 
 /**
 * @description displays the summary view of a post.
@@ -35,8 +36,10 @@ class PostDetail extends Component {
   render() {
     const {post} = this.props;
     
-    if(!post.id) return <div>Loading</div>;
+    if(!post.id && !post.error) return <div>Loading</div>;
     
+    if(post.error) return <ErrorMessage />
+
     return(
       <Col className="post-summary" xs={12}>
         <Row className="post-head">

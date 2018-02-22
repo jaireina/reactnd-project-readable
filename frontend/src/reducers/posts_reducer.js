@@ -46,11 +46,7 @@ function postsReducer(postsState=initialPostsState, action){
       return posts;
       
     case DELETE_POST:
-      return replacePostInList(postsState, action.post);;
-
     case VOTE_POST:
-      return replacePostInList(postsState, action.post);
-
     case RECEIVE_POST_DETAIL:
       return replacePostInList(postsState, action.post);
 
