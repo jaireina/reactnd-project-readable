@@ -56,7 +56,7 @@ class ListPosts extends Component {
             <form>
               <label>Sort By:&nbsp;</label>
                 <select 
-                  value={this.state.sortBy}
+                  value={sortBy}
                   onChange={this.handleSortByChange}>
                   <option value="timestamp">Date</option>
                   <option value="voteScore">Votes</option>
