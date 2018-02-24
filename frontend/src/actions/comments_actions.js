@@ -83,7 +83,6 @@ export const sendVote = (id, voteType) => dispatch => voteApi(id, voteType).then
 * @param {Object} comment that was updated
 */
 export const voteCommentSuccess = (comment) => {
-  console.log(comment);
   return {
     type: VOTE_COMMENT,
     comment

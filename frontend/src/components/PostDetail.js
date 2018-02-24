@@ -7,19 +7,22 @@ import {withRouter} from 'react-router-dom';
 import {fetchPost, fetchPostComments} from '../actions/posts_actions';
 
 import {Row,Col} from 'react-bootstrap';
+import dateformat from 'dateformat';
 
 import PostScore from './PostScore';
 import EditDeletePostBar from './EditDeletePostBar';
 import ListComments from './ListComments';
 import ErrorMessage from './ErrorMessage';
 
+
 /**
-* @description displays the summary view of a post.
+* @description displays the detailed information of a post.
 */
 class PostDetail extends Component {
 
   static propTypes = {
-    postId: PropTypes.string.isRequired
+    postId: PropTypes.string.isRequired,
+    categoryInUrl: PropTypes.string
   }
 
   componentDidMount(){
@@ -32,13 +35,19 @@ class PostDetail extends Component {
     alert('The post has been deleted');
     this.props.history.replace('/');
   }
+
+  onEditPost = (post) => {
+    alert('The post has been edited');
+    this.props.history.replace(`/${post.category}/${post.id}`);
+  }
   
   render() {
-    const {post} = this.props;
-    
+    const {post,categoryInUrl} = this.props;
+    const date = new Date(post.timestamp);
+
     if(!post.id && !post.error) return <div>Loading</div>;
     
-    if(post.error) return <ErrorMessage />
+    if(post.error || post.category !== categoryInUrl) return <ErrorMessage />
 
     return(
       <Col className="post-summary" xs={12}>
@@ -48,7 +57,7 @@ class PostDetail extends Component {
           </Col>
           <Col xs={12} className="post-subtitle">
             <Row>
-              <Col xs={12} className="post-author">By {post.author}</Col>
+              <Col xs={12} className="post-author">By {post.author} - {dateformat(date, "mm-dd-yyyy, h:MM:ss TT")}</Col>
             </Row>
           </Col>
         </Row>
@@ -67,6 +76,7 @@ class PostDetail extends Component {
           <Col xs={12}>
             <EditDeletePostBar 
               onDelete={this.onDeletePost}
+              onEdit={this.onEditPost}
               post={post}
               />
           </Col>

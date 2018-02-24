@@ -4,44 +4,29 @@ import {connect} from 'react-redux';
 import {Row,Col,Button} from 'react-bootstrap';
 import {Switch, Link, Route, withRouter} from 'react-router-dom';
 
-
 import ListPosts from './ListPosts';
 import PostDetail from './PostDetail';
 import AddEditPostModal from './AddEditPostModal';
 import ErrorMessage from './ErrorMessage';
 
-//import {add} from '../api/posts_api';
-
 import {fetchPosts} from '../actions/posts_actions';
 import {fetchCategories} from '../actions/categories_actions';
 
-
-// for(let i = 0; i<10; i++){
-//   add({timestamp:Date.now(),title:`post ${i}`,body:`BODYE HERE ${i}`, category: i%3?'redux':i%2?"react":"udacity"})
-//   .then(console.log)
-//   .then(()=>POSTS_API.getAll().then(console.log));
-// }
-
-
-
+/**
+ * @description  Main App component. It includes the main nav, categories side bar and main view space
+ */
 class App extends Component {
   componentDidMount() {
     this.props.getAllPosts();
     this.props.getAllCategories();
   }
 
-  componentWillReceiveProps(nextProps){
-    console.log(nextProps);
-  }
-
   state = {
     addPostModalOpen: false
   }
 
-  setAddPostModalVisibility = (newState = true)=>{
-    this.setState({addPostModalOpen:newState});
-  }
-
+  setAddPostModalVisibility = (newState) => ()=>this.setState({addPostModalOpen:newState})
+    
   render() {
     const {categories,posts} = this.props;
     return (
@@ -54,7 +39,7 @@ class App extends Component {
           <Button 
             className="navbar-add-post" 
             bsStyle="primary"
-            onClick={this.setAddPostModalVisibility}
+            onClick={this.setAddPostModalVisibility(true)}
             >Add a post</Button>
         </header>
         <Row>
@@ -76,16 +61,19 @@ class App extends Component {
                 render={()=><ListPosts posts={posts}/>}
                 />
 
-              <Route 
-                path="/posts/:postId" 
-                render={(props)=> <PostDetail postId={props.match.params.postId}/> }
-              />
-
               {categories.map(category=>(
                 <Route 
                   key={category.path}
                   exact path={"/"+category.path} 
                   render={()=><ListPosts posts={posts} category={category}/>}
+                  />
+              ))}
+
+              {categories.map(category=>(
+                <Route 
+                  key={category.path}
+                  path={"/"+category.path+"/:postId"} 
+                  render={(props)=><PostDetail postId={props.match.params.postId} categoryInUrl={category.name}/>}
                   />
               ))}
 
@@ -98,9 +86,10 @@ class App extends Component {
         </Row>
 
         <AddEditPostModal 
-          isOpen={this.state.addPostModalOpen} 
-          onRequestClose={()=>this.setAddPostModalVisibility(false)}
-          action="add" />
+          action="add"
+          show={this.state.addPostModalOpen} 
+          onHide={this.setAddPostModalVisibility(false)}
+          />
       </div>
     );
   }

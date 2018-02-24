@@ -7,7 +7,7 @@ import {sendVote} from '../actions/posts_actions';
 import Vote from './Vote';
 
 /**
-* @description Used to display the current votes of a post and to upvote or downvote the post
+* @description Used to display the current votes of a post and a mechanism to upvote or downvote the it
 */
 class PostScore extends Component {
 

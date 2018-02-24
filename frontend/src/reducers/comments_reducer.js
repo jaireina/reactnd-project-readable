@@ -33,7 +33,11 @@ function commentsReducer(state=initialState, action){
       return state;
   }
 }
-
+/**
+ * @description finds the comment inside of state that has the same parentId as de comment provided and replaces it with the latter.
+ * @param {object} comment to find 
+ * @param {object} state that contains all the comments of each post
+ */
 function _replaceCommentInList(comment, state){
   const {parentId} = comment;
   const currentComments = state[parentId]? state[parentId]:[];

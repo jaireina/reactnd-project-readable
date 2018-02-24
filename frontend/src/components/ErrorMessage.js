@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
-* @description Used to display the current votes and a mechanism to upvote or downvote
+* @description Used to display the not found error message
 */
 export default function ErrorMessage(){
   return (

@@ -5,7 +5,7 @@ import ThumbsUpIcon from 'react-icons/lib/fa/thumbs-up';
 import ThumbsDownIcon from 'react-icons/lib/fa/thumbs-down';
 
 /**
-* @description Used to display the current votes and a mechanism to upvote or downvote
+* @description Used to display the generic current votes of something and a mechanism to upvote or downvote
 */
 class Vote extends Component {
 
@@ -16,6 +16,7 @@ class Vote extends Component {
   }
 
   static defaultProps = {
+    voteScore: 0,
     iconsSize: 18,
     onVote: () => {}
   }

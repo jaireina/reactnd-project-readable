@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import {Row,Col} from 'react-bootstrap';
 import CommentsIcon from 'react-icons/lib/fa/comments-o';
 import ArrowRightIcon from 'react-icons/lib/fa/arrow-right';
+import dateformat from 'dateformat';
 
 import PostScore from './PostScore';
 import EditDeletePostBar from './EditDeletePostBar';
@@ -23,15 +25,17 @@ class PostSummary extends Component {
 
   render() {
     const {post} = this.props;
+    const date = new Date(post.timestamp);
+
     return(
       <Col className="post-summary" xs={12}>
         <Row className="post-head">
           <Col xs={12} className="post-title">
-            <Link to={"/posts/"+post.id}>{post.title} <ArrowRightIcon size={15} /> </Link>
+            <Link to={`/${post.category}/${post.id}`}>{post.title} <ArrowRightIcon size={15} /> </Link>
             </Col>
           <Col xs={12} className="post-subtitle">
             <Row>
-              <Col xs={12} className="post-author">By {post.author}</Col>
+              <Col xs={12} className="post-author">By {post.author} - {dateformat(date, "mm-dd-yyyy, h:MM:ss TT")}</Col>
             </Row>
           </Col>
         </Row>
@@ -46,8 +50,9 @@ class PostSummary extends Component {
         <Row className="post-actions">
           <Col xs={12}>
             <EditDeletePostBar 
-              onDelete={()=>alert('The post has been deleted')}
               post={post}
+              onDelete={()=>alert('The post has been deleted')}
+              onEdit={()=>alert('The post has been edited')}
               />
           </Col>
         </Row>

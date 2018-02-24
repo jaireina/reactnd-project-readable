@@ -5,7 +5,7 @@ import {Row,Col} from 'react-bootstrap';
 
 import PostSummary from './PostSummary';
 /**
-* @description displays a list of posts of a given category or shows all the posts available (if no category is provided)
+* @description displays a list of posts of a given category or shows all the posts available if no category is provided
 */
 class ListPosts extends Component {
 

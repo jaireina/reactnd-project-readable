@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-import {doGet, doPost, doDelete, doPut} from '../util/fetch';
+import {doPost, doDelete, doPut} from '../util/fetch';
 
 /**
  * Add a new comment with the given data
@@ -27,34 +27,13 @@ export const edit = (data) => {
   return doPut(`/comments/${data.id}`, comment);
 };
 
-
-/**** TODO: REVIEW BELOW ****/
-
 /**
- * Get all the posts from the server
- * 
- * @return {Promise} that resolves to an array with all the posts
- */
-export const getAll = () => doGet(`/posts`);
-
-
-/**
- * Get the post with the given id from the server
- * 
- * @param {string} id of the post
- * @return {Promise} that resolves to an object with the post information
- */
-export const get = (id) => doGet(`/posts/${id}`);
-
-/**
- * Detele a comment
+ * Delete a comment
  * 
  * @param {string} id of the comment
  * @return {Promise} that resolves to an object with the info of the comment that was deleted
  */
 export const deleteComment = id => doDelete(`/comments/${id}`);
-
-
 
 /**
  * Upvote or downvote a comment

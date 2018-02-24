@@ -2,9 +2,9 @@ import {
   ADD_POST,
   DELETE_POST,
   RECEIVE_POSTS,
-  EDIT_POSTS,
   VOTE_POST,
-  RECEIVE_POST_DETAIL
+  RECEIVE_POST_DETAIL,
+  EDIT_POST
 } from '../actions/posts_actions';
 
 import {
@@ -44,7 +44,14 @@ function postsReducer(postsState=initialPostsState, action){
     case RECEIVE_POSTS:
       const {posts} = action;
       return posts;
-      
+
+    case ADD_POST:
+      const {post} = action;
+      const newState = [...postsState];
+      newState.push(post);
+      return newState;
+    
+    case EDIT_POST:
     case DELETE_POST:
     case VOTE_POST:
     case RECEIVE_POST_DETAIL:

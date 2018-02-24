@@ -1,10 +1,12 @@
 import {
-      getAll as getAllPosts, 
-      vote, 
-      get as getPost, 
-      deletePost as deletePostAPI,
-      getComments
-      } from '../api/posts_api';
+  add as addPostApi,
+  getAll as getAllPosts, 
+  edit as editPostApi,
+  vote, 
+  get as getPost, 
+  deletePost as deletePostAPI,
+  getComments
+} from '../api/posts_api';
 
 export const ADD_POST = 'ADD_POST';
 export const EDIT_POST = 'EDIT_POST';
@@ -14,11 +16,43 @@ export const VOTE_POST = 'VOTE_POST';
 export const RECEIVE_POST_DETAIL = 'RECEIVE_POST_DETAIL';
 export const RECEIVE_POST_COMMENTS = 'RECEIVE_POST_COMMENTS';
 
-export const addPost = () => {
+/**
+* Creates an action that is used when we're adding a post
+* @param {Object} action
+*/
+
+export const addPost = (post) => {
   return {
-    type: ADD_POST
+    type: ADD_POST,
+    post
   }
 }
+
+/**
+ * Connects to the API to add a new post. Once the server responds, it dispatches the addPost action
+ * 
+ * @param {Object} postData
+ */
+export const requestAddPost = postData => dispatch => addPostApi(postData).then(post=>dispatch(addPost(post)));
+
+/**
+* Creates an action that is used when we're editing a post
+* @param {Object} action
+*/
+export const editPost = post => {
+  return {
+    type: EDIT_POST,
+    post
+  }
+}
+
+/**
+ * Connects to the API to edit a post. Once the server responds, it dispatches the editPost action
+ * 
+ * @param {Object} postData
+ */
+export const requestEditPost = postData => dispatch => editPostApi(postData).then(post=>dispatch(editPost(post)));
+
 
 /**
  * Creates an action that is used when we're receiving the posts to be set in the store

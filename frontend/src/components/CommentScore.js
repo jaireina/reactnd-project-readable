@@ -7,7 +7,7 @@ import {sendVote} from '../actions/comments_actions';
 import Vote from './Vote';
 
 /**
-* @description Used to display the current votes of a post and to upvote or downvote the post
+* @description Used to display the current votes of a comment and the mechanism to upvote or downvote it
 */
 class CommentScore extends Component {
 

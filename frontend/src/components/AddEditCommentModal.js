@@ -7,6 +7,9 @@ import {requestAddComment, requestEditComment} from '../actions/comments_actions
 
 import {Button,FormGroup,ControlLabel,FormControl, Modal} from 'react-bootstrap';
 
+/**
+ * @description Modal that shows the form to add or edit a comment
+ */
 class AddEditCommentModal extends Component {
   static propTypes = {
     onCloseRequest: PropTypes.func,

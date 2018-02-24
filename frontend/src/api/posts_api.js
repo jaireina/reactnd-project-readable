@@ -1,4 +1,4 @@
-import {doGet, doPost, doDelete} from '../util/fetch';
+import {doGet, doPost, doDelete, doPut} from '../util/fetch';
 import uuidv4 from 'uuid/v4';
 
 /**
@@ -25,10 +25,21 @@ export const get = (id) => doGet(`/posts/${id}`);
  * @return {Promise} that resolves to an object with the post information
  */
 export const add = (data) => {
-  
-  let post = {id: uuidv4(), ...data};
-
+  let post = {  ...data, id: uuidv4(), timestamp: Date.now() };
   return doPost(`/posts`, post);
+};
+
+/**
+ * Edit a post with the given data
+ * 
+ * @param {object} data of the comment to be edited
+ * @return {Promise} that resolves to an object with the comment information
+ */
+export const edit = (data) => {
+  
+  let post = { ...data, timestamp: Date.now()};
+
+  return doPut(`/posts/${data.id}`, post);
 };
 
 /**
