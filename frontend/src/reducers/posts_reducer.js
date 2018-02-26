@@ -4,13 +4,10 @@ import {
   RECEIVE_POSTS,
   VOTE_POST,
   RECEIVE_POST_DETAIL,
-  EDIT_POST
-} from '../actions/posts_actions';
-
-import {
+  EDIT_POST,
   DELETE_COMMENT,
   ADD_COMMENT
-} from '../actions/comments_actions';
+} from '../actions/action_types';
 
 const initialPostsState = [];
 

@@ -1,6 +1,5 @@
 import {getAll as getAllCategories} from '../api/categories_api';
-
-export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
+import {RECEIVE_CATEGORIES} from './action_types';
 
 /**
  * Creates an action that is used when we're receiving the categories

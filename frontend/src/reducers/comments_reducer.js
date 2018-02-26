@@ -2,12 +2,9 @@ import {
   ADD_COMMENT, 
   EDIT_COMMENT,
   DELETE_COMMENT,
-  VOTE_COMMENT
-} from '../actions/comments_actions';
-
-import {
+  VOTE_COMMENT,
   RECEIVE_POST_COMMENTS
-} from '../actions/posts_actions';
+} from '../actions/action_types';
 
 const initialState = {};
 

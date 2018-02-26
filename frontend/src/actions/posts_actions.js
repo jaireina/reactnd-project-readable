@@ -8,13 +8,15 @@ import {
   getComments
 } from '../api/posts_api';
 
-export const ADD_POST = 'ADD_POST';
-export const EDIT_POST = 'EDIT_POST';
-export const DELETE_POST = 'DELETE_POST';
-export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-export const VOTE_POST = 'VOTE_POST';
-export const RECEIVE_POST_DETAIL = 'RECEIVE_POST_DETAIL';
-export const RECEIVE_POST_COMMENTS = 'RECEIVE_POST_COMMENTS';
+import {
+  ADD_POST,
+  DELETE_POST,
+  RECEIVE_POSTS,
+  VOTE_POST,
+  RECEIVE_POST_DETAIL,
+  EDIT_POST,
+  RECEIVE_POST_COMMENTS
+} from '../actions/action_types';
 
 /**
 * Creates an action that is used when we're adding a post

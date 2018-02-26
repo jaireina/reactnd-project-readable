@@ -2,7 +2,7 @@ import {
   RECEIVE_POST_DETAIL,
   VOTE_POST,
   EDIT_POST
-} from '../actions/posts_actions';
+} from '../actions/action_types';
 
 const initialCurrentPostState = {};
 

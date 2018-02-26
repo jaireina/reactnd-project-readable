@@ -26,7 +26,7 @@ class AddEditPostModal extends Component {
     onEditSuccess: () => {}
   }
 
-  state = {
+  static defaultState = {
     title:'',
     author: '',
     body: '',
@@ -39,7 +39,9 @@ class AddEditPostModal extends Component {
     },
     isEditing: false,
     modalTitle: 'Add post',
-  }
+  };
+
+  state = {...AddEditPostModal.defaultState};
 
   getValidationState = (field, ignoreTouchState=false) => {
     const fieldState = this.state[field].trim();
@@ -68,12 +70,6 @@ class AddEditPostModal extends Component {
     });
   }
 
-  resetState = () => {
-    this.setState({
-      touched: this.setFieldsTouchState(false)
-    });
-  }
-
   setFieldsTouchState = (touched) =>{
     return {
       title: touched,
@@ -84,7 +80,6 @@ class AddEditPostModal extends Component {
   }
 
   handleModalClose = ()=>{
-    this.resetState(); 
     this.props.onHide();
   }
 
@@ -96,7 +91,10 @@ class AddEditPostModal extends Component {
   
   handleOnEnter = () => {
     const {action, categories} = this.props;
-    this.setState({category: categories[0].name});
+    this.setState({...AddEditPostModal.defaultState, 
+                    category: categories[0].name,
+                    touched: this.setFieldsTouchState(false)
+                  });
     
     if(action==="add") return;
     
