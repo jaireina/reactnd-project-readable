@@ -69,14 +69,13 @@ class App extends Component {
                   />
               ))}
 
-              {categories.map(category=>(
+              {posts.map(post=>(
                 <Route 
-                  key={category.path}
-                  path={"/"+category.path+"/:postId"} 
-                  render={(props)=><PostDetail postId={props.match.params.postId} categoryInUrl={category.name}/>}
+                  key={post.id}
+                  exact path={`/${post.category}/${post.id}`} 
+                  render={(props)=><PostDetail postId={post.id} categoryInUrl={post.category}/>}
                   />
               ))}
-
               <Route 
                 component={ErrorMessage}
               />
